@@ -21,14 +21,8 @@ const res = data
   })
   .filter((pairs) => {
     if (
-      pairs.pair1.from <= pairs.pair2.from &&
-      pairs.pair1.to >= pairs.pair2.to
-    ) {
-      return true;
-    }
-    if (
-      pairs.pair2.from <= pairs.pair1.from &&
-      pairs.pair2.to >= pairs.pair1.to
+      pairs.pair1.from <= pairs.pair2.to &&
+      pairs.pair1.to >= pairs.pair2.from
     ) {
       return true;
     }
