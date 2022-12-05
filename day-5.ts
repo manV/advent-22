@@ -33,7 +33,6 @@ for (const step of steps.split("\n")) {
   for (let i = 0; i < numCrates; i++) {
     toMove.push(stacks[from].shift()!);
   }
-  toMove.reverse();
 
   stacks[to] = [...toMove, ...stacks[to]];
 }
