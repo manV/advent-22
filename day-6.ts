@@ -5,24 +5,18 @@ const buffer: Array<string> = [];
 for (let i = 0; i < data.length; i++) {
   const c = data[i];
   buffer.push(c);
-  if (buffer.length > 4) {
+  if (buffer.length > 14) {
     buffer.shift();
   }
-  if (
-    buffer.length === 4 &&
-    checkAllDiff(buffer[0], buffer[1], buffer[2], buffer[3])
-  ) {
+  if (buffer.length === 14 && checkAllDiff(...buffer)) {
     console.log(i + 1);
     break;
   }
 }
 
-function checkAllDiff(a: string, b: string, c: string, d: string) {
+function checkAllDiff(...chars: string[]) {
   const set = new Set<string>();
-  set.add(a);
-  set.add(b);
-  set.add(c);
-  set.add(d);
-  if (set.size === 4) return true;
+  chars.forEach((c) => set.add(c));
+  if (set.size === 14) return true;
   return false;
 }
