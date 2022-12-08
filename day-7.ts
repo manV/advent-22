@@ -53,8 +53,6 @@ data.split("$ ").forEach((commandStr) => {
   }
 });
 
-const resultDirectories: Node[] = [];
-
 function calculateTotalSizes(node: Node) {
   node.size =
     node.children?.reduce((prev, child) => {
@@ -66,12 +64,33 @@ function calculateTotalSizes(node: Node) {
       );
     }, 0) ?? node.size;
 
-  if (node.size <= 100000) {
-    resultDirectories.push(node);
-  }
   return node.size;
 }
 
 calculateTotalSizes(root!);
 
-console.log(resultDirectories.reduce((prev, dir) => prev + dir.size, 0));
+const sizeToFree = 30000000 - (70000000 - root!.size);
+console.log("size to free for update", sizeToFree);
+
+let closest = root!;
+
+function findClosestDirectoryToDelete(node: Node) {
+  if (
+    node.type === NodeType.DIRECTORY &&
+    node.size >= sizeToFree &&
+    node.size - sizeToFree < closest.size - sizeToFree
+  ) {
+    closest = node;
+  }
+
+  node.children?.forEach((node) => {
+    findClosestDirectoryToDelete(node);
+  });
+}
+
+findClosestDirectoryToDelete(root!);
+
+console.log(
+  "size of the directory that can be deleted which would free up enough space for update",
+  closest!.size
+);
