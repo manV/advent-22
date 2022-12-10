@@ -25,7 +25,7 @@ const gridArray: Array<Array<Tree>> = [];
 
 data.split("\n").forEach((row, i) => {
   gridArray.push([]);
-  row.split("").forEach((treeHeight, j) => {
+  row.split("").forEach((treeHeight) => {
     gridArray[i].push({
       height: parseInt(treeHeight, 10),
       maxToLeft: null,
